@@ -1,0 +1,10 @@
+name = "dombesteindata-api"
+main = "src/index.js"
+compatibility_date = "2025-12-16"
+
+workers_dev = true
+
+# This is not needed for now, but might be nice later in case we want config-driven routing.
+# routes = [
+#   { pattern = "api.dombesteindata.net/*", custom_domain = true }    
+# ]
