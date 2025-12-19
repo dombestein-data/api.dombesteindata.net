@@ -5,7 +5,7 @@ import { verifyTurnstile } from '../../../lib/turnstile.js';
 export async function handleV1ContactSend({ request, env, headers }) {
     let body;
 
-    // Step 1 - Parse JSON body
+    // Parse JSON body
     try {
         body = await request.json();
     } catch {
@@ -15,7 +15,7 @@ export async function handleV1ContactSend({ request, env, headers }) {
         );
     }
 
-    // Step 2 - Validate input fields
+    // Validate input fields
     const validation = validateContactPayload(body);
     if (!validation.ok) {
         return json(
@@ -26,7 +26,7 @@ export async function handleV1ContactSend({ request, env, headers }) {
 
     const { name, email, message, turnstileToken } = validation.value;
 
-    // Step 3 - Verify Turnstile
+    // Verify Turnstile
     const secret = env.TURNSTILE_SECRET_KEY;
     if (!secret) {
         return json(
@@ -53,7 +53,7 @@ export async function handleV1ContactSend({ request, env, headers }) {
         }
     }
 
-    // Step 4 - Send email via Resend
+    // Send email via Resend
     const resendKey = env.RESEND_API_KEY;
     const toEmail = env.CONTACT_TO_EMAIL;
 
@@ -65,8 +65,6 @@ export async function handleV1ContactSend({ request, env, headers }) {
     }
 
     const emailPayload = {
-        // Use a verified sender. If you haven't verified dombesteindata.net in Resend yet,
-        // onboarding@resend.dev is the safest default for testing.
         from: env.RESEND_FROM_EMAIL || 'Dombestein Data <noreply@dombesteindata.net>',
         to: [toEmail],
         reply_to: email,
