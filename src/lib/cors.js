@@ -4,7 +4,7 @@ export const ALLOWED_ORIGINS = new Set([
 ]);
 
 function isDev(env) {
-    return env?.ENNVIRONMENT === 'dev';
+    return (env?.ENVIRONMENT || env?.ENV || '').toString().toLowerCase() === 'dev';
 }
 
 export function isAllowedOrigin(origin, env) {
@@ -15,6 +15,8 @@ export function isAllowedOrigin(origin, env) {
 
     // If we're in a dev environment, allow localhost as well.
     if (isDev(env) && origin.startsWith('http://localhost:')) return true;
+
+    return false;
 }
 
 export function corsHeaders(origin, env) {
