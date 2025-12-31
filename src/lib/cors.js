@@ -1,6 +1,7 @@
 export const ALLOWED_ORIGINS = new Set([
     "https://dombesteindata.net",
     "https://dikult105.k.uib.no",
+    "https://estimator.dombesteindata.net",
 ]);
 
 function isDev(env) {
